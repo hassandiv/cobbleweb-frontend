@@ -11,10 +11,7 @@ export default function Footer() {
             </a>
           </div>
           <div>
-            {/* <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">
-                Menu
-              </h2> */}
-            <ul className="flex flex-row items-center justify-between text-gray-500 dark:text-gray-400 font-medium">
+            <ul className="flex flex-row items-center justify-between w-96 text-gray-500 dark:text-gray-400 font-medium">
               <li>
                 <a href="/" className="hover:underline">
                   Home
