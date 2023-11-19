@@ -1,4 +1,20 @@
-export default function Header() {
+"use server";
+
+import { getCookie } from "cookies-next";
+import { deleteCookie } from "cookies-next";
+import { cookies } from "next/headers";
+import Button from "../../components/button";
+
+export default async function Header() {
+  const TOKEN = "token";
+  const isAuth = getCookie(TOKEN);
+  const cookie = cookies();
+  const getToken = cookie.get(TOKEN);
+  // const deleteToken = cookie.delete(TOKEN);
+  console.log("isAuth", isAuth);
+  console.log("getToken", getToken);
+  // const handleSignOut = () => deleteCookie("token");
+
   return (
     <header className="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
       <div className="container max-w-screen-xl flex flex-col items-start justify-between p-6 mx-auto md:flex-row">
@@ -17,15 +33,25 @@ export default function Header() {
           </a>
         </nav>
         <div className="items-center h-full">
-          <a href="/login" className="mr-5 font-medium hover:text-gray-900">
-            Login
-          </a>
-          <a
-            href="/signup"
-            className="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
-          >
-            Sign Up
-          </a>
+          {!getToken?.value ? (
+            <>
+              <a href="/login" className="mr-5 font-medium hover:text-gray-900">
+                Login
+              </a>
+              <Button text="sign up" to="/signup" />
+            </>
+          ) : (
+            <>
+              <a
+                href="/account"
+                className="mr-5 font-medium hover:text-gray-900"
+              >
+                Account
+              </a>
+              {/* <Button text="sign up" to="/signup" /> */}
+              {/* <button onClick={() => cookie.delete(TOKEN)}>Sign out</button> */}
+            </>
+          )}
         </div>
       </div>
     </header>
