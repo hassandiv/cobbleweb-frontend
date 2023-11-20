@@ -4,6 +4,7 @@ import { getCookie } from "cookies-next";
 import { deleteCookie } from "cookies-next";
 import { cookies } from "next/headers";
 import Button from "../../components/button";
+import Link from "next/link";
 
 export default async function Header() {
   const TOKEN = "token";
@@ -22,32 +23,38 @@ export default async function Header() {
           Cobbleweb
         </a>
         <nav className="flex flex-wrap items-center justify-center pl-6 ml-6 text-base border-l border-gray-200 md:mr-auto">
-          <a href="/" className="mr-5 font-medium hover:text-gray-900">
+          <Link href="/" className="mr-5 font-medium hover:text-gray-900">
             Home
-          </a>
-          <a href="/about" className="mr-5 font-medium hover:text-gray-900">
+          </Link>
+          <Link href="/about" className="mr-5 font-medium hover:text-gray-900">
             About
-          </a>
-          <a href="/contact" className="font-medium hover:text-gray-900">
+          </Link>
+          <Link
+            href="/contact"
+            className="mr-5 font-medium hover:text-gray-900"
+          >
             Contact
-          </a>
+          </Link>
         </nav>
         <div className="items-center h-full">
           {!getToken?.value ? (
             <>
-              <a href="/login" className="mr-5 font-medium hover:text-gray-900">
+              <Link
+                href="/login"
+                className="mr-5 font-medium hover:text-gray-900"
+              >
                 Login
-              </a>
+              </Link>
               <Button text="sign up" to="/signup" />
             </>
           ) : (
             <>
-              <a
+              <Link
                 href="/account"
                 className="mr-5 font-medium hover:text-gray-900"
               >
                 Account
-              </a>
+              </Link>
               {/* <Button text="sign up" to="/signup" /> */}
               {/* <button onClick={() => cookie.delete(TOKEN)}>Sign out</button> */}
             </>

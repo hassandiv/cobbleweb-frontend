@@ -38,7 +38,7 @@ export default function Account() {
     <>
       {error?.description && (
         <div className="mt-8 bg-red-200 p-8 rounded text-center shadow-md">
-          <p>{error?.description}</p>
+          <p>Error: {error?.description}</p>
         </div>
       )}
       {client && (
@@ -62,7 +62,7 @@ export default function Account() {
               <p className={client.active ? "text-green-500" : "text-red-500"}>
                 {client.active ? "Active" : "Inactive"}
               </p>
-              <p className="text-xl font-bold">role: {client.role}</p>
+              <p className="text-lg font-bold">role: {client.role}</p>
             </div>
           </div>
           <div className="mt-8 mb-40">

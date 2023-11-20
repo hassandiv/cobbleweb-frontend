@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
-import { LoginUser } from "../../actions/actions";
-import { Login } from "../../models/login";
-import { Error } from "../../models/error";
-import Button from "../../components/button";
-import Container from "../../components/container";
+import { LoginUser } from "@/app/actions/actions";
+import { Login } from "@/app/models/login";
+import { Error } from "@/app/models/error";
+import Button from "@/app/components/button";
+import Container from "@/app/components/container";
+import Input from "@/app/components/input";
 
 export default function Login() {
   const [login, setLogin] = useState<Login>({
@@ -61,26 +62,24 @@ export default function Login() {
       >
         <h1 className="mb-8 mx-auto text-xl font-bold">Login</h1>
         <div className="mb-8 flex flex-col w-full relative">
-          <label>Email:</label>
-          <input
+          <Input
+            label="Email"
             type="email"
             name="email"
             value={login.email}
             placeholder="Enter your email address"
             onChange={handleChange}
-            className="border border-teal-600 rounded p-1 mt-1 outline-none"
           />
           {validateInput("email")}
         </div>
         <div className="mb-8 flex flex-col w-full relative">
-          <label>Password:</label>
-          <input
+          <Input
+            label="Password"
             type="password"
             name="password"
             value={login.password}
             placeholder="Enter your password"
             onChange={handleChange}
-            className="border border-teal-600 rounded p-1 mt-1 outline-none"
           />
           {validateInput("password")}
         </div>
