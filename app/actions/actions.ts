@@ -1,25 +1,25 @@
 "use server";
 
 import { Login } from "@/app/models/login";
-import { Signup } from "@/app/models/signup";
+import { ISignup } from "@/app/models/signup";
 import { ClientDetails } from "@/app/models/client";
 import { cookies } from "next/headers";
 
-export async function Signup(request: Signup) {
+export async function Signup(request: ISignup) {
   try {
-    // const response = await fetch(
-    //   `${process.env.NEXT_PUBLIC_COBBLEWEB_API_BASE_URL}register`,
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     cache: "no-cache",
-    //     body: JSON.stringify(request),
-    //   }
-    // );
-    // const data = await response?.json();
-    // return data;
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_COBBLEWEB_API_BASE_URL}register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        cache: "no-cache",
+        body: JSON.stringify(request),
+      }
+    );
+    const data = await response?.json();
+    return data;
   } catch (error) {
     console.log("error", error);
   }

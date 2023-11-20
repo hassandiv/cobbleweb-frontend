@@ -4,6 +4,7 @@ export default function ImageInput({
   id,
   btnText,
   multiple,
+  required,
   onChange,
 }: {
   label: string;
@@ -11,15 +12,16 @@ export default function ImageInput({
   id: string;
   btnText: string;
   multiple?: boolean;
+  required?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <>
       <label
-        className="block mb-2 text-md text-gray-900 dark:text-black"
+        className="block mb-1 text-md text-gray-900 dark:text-black"
         htmlFor={id}
       >
-        {label}:
+        {label} {required && "*"}
       </label>
       <input
         type="file"

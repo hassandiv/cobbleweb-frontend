@@ -4,6 +4,7 @@ export default function Input({
   name,
   value,
   placeholder,
+  required,
   onChange,
 }: {
   label: string;
@@ -11,11 +12,14 @@ export default function Input({
   name: string;
   value: string;
   placeholder: string;
+  required?: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <>
-      <label htmlFor={label}>{label}:</label>
+      <label htmlFor={label}>
+        {label} {required && "*"}
+      </label>
       <input
         type={type}
         name={name}

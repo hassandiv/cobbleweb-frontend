@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import { Me } from "@/app/actions/actions";
 import { ClientDetails } from "@/app/models/client";
 import { Error } from "@/app/models/error";
+import Image from "next/image";
 
 export default function Account() {
   const [client, setClient] = useState<ClientDetails | undefined>(undefined);
@@ -45,13 +46,12 @@ export default function Account() {
         <div className="mt-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img
-                // src={client.avatar}
-                src={
-                  "https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"
-                }
+              <Image
+                src={client.avatar}
                 alt="Client Avatar"
-                className="w-16 h-16 rounded-full mr-4"
+                className="w-16 h-16 object-cover rounded-full mr-4"
+                width={100}
+                height={100}
               />
               <div>
                 <p className="text-xl font-bold">{client.fullName}</p>
@@ -69,14 +69,13 @@ export default function Account() {
             <Slider {...sliderSettings}>
               {client.photos.map((photo) => (
                 <div key={photo.id}>
-                  <img
-                    // src={photo.url}
-                    src={
-                      "https://fastly.picsum.photos/id/0/5000/3333.jpg?hmac=_j6ghY5fCfSD6tvtcV74zXivkJSPIfR9B8w34XeQmvU"
-                    }
+                  <Image
+                    src={photo.url}
                     alt={photo.name}
                     className="w-full object-cover rounded"
                     style={{ height: "600px" }}
+                    width={100}
+                    height={100}
                   />
                   <p className="mt-2 text-gray-700">{photo.name}</p>
                 </div>

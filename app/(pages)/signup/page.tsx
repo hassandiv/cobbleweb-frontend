@@ -1,40 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { setCookie } from "cookies-next";
-import { LoginUser } from "@/app/actions/actions";
-import { Signup } from "@/app/models/signup";
+import { Signup } from "@/app/actions/actions";
+import { ISignup } from "@/app/models/signup";
 import { Error } from "@/app/models/error";
 import Button from "@/app/components/button";
 import Container from "@/app/components/container";
 import Input from "@/app/components/input";
 import ImageInput from "@/app/components/imageInput";
+import Image from "next/image";
 
 export default function Login() {
-  const [signup, setSignup] = useState<Signup>({
+  const initialSignupState: ISignup = {
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    role: "",
+    role: "client",
     active: false,
     avatar: "",
     photos: [],
-  });
-  const [success, setSuccess] = useState<String | undefined>(undefined);
+  };
+  const [signup, setSignup] = useState<ISignup>(initialSignupState);
+  const [success, setSuccess] = useState<string | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
-  const router = useRouter();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      const response = await LoginUser(signup);
-      if (response.token) {
-        setCookie("token", response.token);
+      const response = await Signup(signup);
+      if (response.message) {
         setSuccess(response.message);
-        router.push("/account");
         setError(undefined);
+        setSignup(initialSignupState);
       }
       if (response.error) {
         setError(response.error);
@@ -52,13 +50,16 @@ export default function Login() {
     });
   };
 
-  const validateInput = (field: string) =>
-    error?.errors &&
-    error?.errors.map((error) => (
-      <small className="text-red-600 mt-1 absolute top-16" key={error.field}>
-        {field === error.field && error.message}
-      </small>
-    ));
+  const validateInput = (field: string) => {
+    return (
+      error?.errors &&
+      error?.errors.map((error) => (
+        <small className="text-red-600 mt-1 absolute top-16" key={error.field}>
+          {field === error.field && error.message}
+        </small>
+      ))
+    );
+  };
 
   const handleAvatarChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -123,8 +124,9 @@ export default function Login() {
         className="bg-gray-100 rounded p-6 h-full flex flex-col items-start shadow-md"
       >
         <h1 className="mb-8 mx-auto text-xl font-bold">Sign up</h1>
-        <div className="flex flex-row w-full gap-8">
-          <div className="mb-8 flex flex-col w-40 relative">
+        <small className="mb-4">Fields marked with * are mandatory</small>
+        <div className="flex flex-col sm:flex-row w-full sm:gap-5">
+          <div className="mb-8 flex flex-col w-full sm:w-44 relative">
             <Input
               label="First Name"
               type="text"
@@ -132,10 +134,11 @@ export default function Login() {
               value={signup.firstName}
               placeholder="First name"
               onChange={handleChange}
+              required={true}
             />
             {validateInput("firstName")}
           </div>
-          <div className="mb-8 flex flex-col w-40 relative">
+          <div className="mb-8 flex flex-col w-full sm:w-44 relative">
             <Input
               label="Last Name"
               type="text"
@@ -143,6 +146,7 @@ export default function Login() {
               value={signup.lastName}
               placeholder="Last name"
               onChange={handleChange}
+              required={true}
             />
             {validateInput("lastName")}
           </div>
@@ -155,6 +159,7 @@ export default function Login() {
             value={signup.email}
             placeholder="Email address"
             onChange={handleChange}
+            required={true}
           />
           {validateInput("email")}
         </div>
@@ -166,10 +171,11 @@ export default function Login() {
             value={signup.password}
             placeholder="Password"
             onChange={handleChange}
+            required={true}
           />
           {validateInput("password")}
         </div>
-        <div className="w-64 mt-2 flex flex-row justify-between relative">
+        <div className="w-64 mb-8 flex flex-row justify-between relative">
           <div className="w-36">
             <ImageInput
               label="Avatar"
@@ -180,10 +186,16 @@ export default function Login() {
             />
           </div>
           {signup.avatar && (
-            <img src={signup.avatar} alt="Selected" className="w-16 h-auto" />
+            <Image
+              src={signup.avatar}
+              alt="Selected"
+              className="w-16 h-auto object-cover"
+              width={100}
+              height={100}
+            />
           )}
         </div>
-        <div className="w-64 mt-8 flex flex-col justify-between relative">
+        <div className="w-full flex flex-col justify-between relative">
           <div className="w-36">
             <ImageInput
               label="Photos"
@@ -191,23 +203,29 @@ export default function Login() {
               id="photos"
               btnText="Upload photos"
               onChange={handlePhotosChange}
+              required={true}
               multiple
             />
+            {signup?.photos.length === 0 && validateInput("photos")}
           </div>
           <div className="flex flex-wrap w-80 mt-5">
             {signup.photos &&
               signup.photos.map((photo, index) => (
                 <figure className="relative" key={index}>
-                  <img
+                  <Image
                     src={photo.url}
                     alt={photo.name}
-                    className="w-16 h-10 object-fill mr-2 mb-4"
+                    className="w-16 h-10 object-cover mr-2 mb-4"
+                    width={100}
+                    height={100}
                   />
-                  <img
+                  <Image
                     src="/remove.png"
                     alt="remove image"
                     className="absolute -top-3 right-0 w-5 h-auto cursor-pointer"
                     onClick={() => handleRemoveImage(index)}
+                    width={100}
+                    height={100}
                   />
                 </figure>
               ))}

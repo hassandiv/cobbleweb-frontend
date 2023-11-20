@@ -3,7 +3,7 @@ interface Photo {
   url: string;
 }
 
-export interface Signup {
+export interface ISignup {
   firstName: string;
   lastName: string;
   email: string;
