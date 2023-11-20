@@ -14,12 +14,16 @@ export default function Account() {
   const [error, setError] = useState<Error | undefined>(undefined);
 
   const fetchClient = async () => {
-    const response = await Me();
-    if (response.clientDetails) {
-      setClient(response.clientDetails);
-    }
-    if (response.error) {
-      setError(response.error);
+    try {
+      const response = await Me();
+      if (response.clientDetails) {
+        setClient(response.clientDetails);
+      }
+      if (response.error) {
+        setError(response.error);
+      }
+    } catch (error: any) {
+      setError(error);
     }
   };
 
@@ -37,9 +41,9 @@ export default function Account() {
 
   return (
     <>
-      {error?.description && (
+      {(error?.message || error?.description) && (
         <div className="mt-8 bg-red-200 p-8 rounded text-center shadow-md">
-          <p>Error: {error?.description}</p>
+          <p>Error: {error?.message || error?.description}</p>
         </div>
       )}
       {client && (

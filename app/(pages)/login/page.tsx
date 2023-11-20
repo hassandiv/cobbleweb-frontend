@@ -33,8 +33,8 @@ export default function Login() {
         setError(response.error);
         setSuccess(undefined);
       }
-    } catch (error) {
-      console.log("error", error);
+    } catch (error: any) {
+      setError(error);
     }
   };
 
@@ -45,13 +45,16 @@ export default function Login() {
     });
   };
 
-  const validateInput = (field: string) =>
-    error?.errors &&
-    error?.errors.map((error) => (
-      <small className="text-red-600 mt-1 absolute top-16" key={error.field}>
-        {field === error.field && error.message}
-      </small>
-    ));
+  const validateInput = (field: string) => {
+    return (
+      error?.errors &&
+      error?.errors.map((error) => (
+        <small className="text-red-600 mt-1 absolute top-16" key={error.field}>
+          {field === error.field && error.message}
+        </small>
+      ))
+    );
+  };
 
   return (
     <Container>
@@ -87,9 +90,9 @@ export default function Login() {
           <Button text="Login" type="submit" />
         </div>
       </form>
-      {error?.description && (
+      {(error?.message || error?.description) && (
         <div className="mt-8 bg-red-200 p-8 rounded text-center shadow-md">
-          <p>{error?.description}</p>
+          <p>Error: {error?.message || error?.description}</p>
         </div>
       )}
       {success && (

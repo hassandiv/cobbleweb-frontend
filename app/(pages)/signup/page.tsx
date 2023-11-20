@@ -38,8 +38,8 @@ export default function Login() {
         setError(response.error);
         setSuccess(undefined);
       }
-    } catch (error) {
-      console.log("error", error);
+    } catch (error: any) {
+      setError(error);
     }
   };
 
@@ -235,9 +235,9 @@ export default function Login() {
           <Button text="Signup" type="submit" />
         </div>
       </form>
-      {error?.description && (
+      {(error?.message || error?.description) && (
         <div className="mt-8 bg-red-200 p-8 rounded text-center shadow-md">
-          <p>{error?.description}</p>
+          <p>Error: {error?.message || error?.description}</p>
         </div>
       )}
       {success && (

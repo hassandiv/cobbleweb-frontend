@@ -4,6 +4,7 @@ export interface Error {
     message: string;
   }[];
   description?: string;
-  httpCode: number;
-  isOperational: boolean;
+  httpCode?: number;
+  isOperational?: boolean;
+  message?: string;
 }

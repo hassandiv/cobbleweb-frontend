@@ -2,7 +2,6 @@
 
 import { Login } from "@/app/models/login";
 import { ISignup } from "@/app/models/signup";
-import { ClientDetails } from "@/app/models/client";
 import { cookies } from "next/headers";
 
 export async function Signup(request: ISignup) {
@@ -21,7 +20,8 @@ export async function Signup(request: ISignup) {
     const data = await response?.json();
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.error("API request error", error);
+    throw new Error("Our service is temporary down, please try again later!");
   }
 }
 
@@ -41,7 +41,8 @@ export async function LoginUser({ email, password }: Login) {
     const data = await response?.json();
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.error("API request error", error);
+    throw new Error("Our service is temporary down, please try again later!");
   }
 }
 
@@ -63,6 +64,7 @@ export async function Me() {
     const data = await response?.json();
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.error("API request error", error);
+    throw new Error("Our service is temporary down, please try again later!");
   }
 }
