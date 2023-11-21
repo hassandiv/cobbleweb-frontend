@@ -1,6 +1,6 @@
 "use client";
-
 import { getCookie, deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 import Link from "next/link";
 import Button from "@/app/components/button";
@@ -8,9 +8,10 @@ import Button from "@/app/components/button";
 export default function Header() {
   const TOKEN = "token";
   const authToken = getCookie(TOKEN);
+  const router = useRouter();
 
   const handleSignOut = () => {
-    window.location.reload();
+    router.refresh();
     deleteCookie(TOKEN);
   };
 

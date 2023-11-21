@@ -10,24 +10,30 @@ import { Error } from "@/app/models/error";
 import Image from "next/image";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/components/loader";
 
 export default function Profile() {
   const [client, setClient] = useState<ClientDetails | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
+  const [isloading, setLoaing] = useState<boolean>(false);
   const authToken = getCookie("token");
   const router = useRouter();
 
   const fetchClient = async () => {
+    setLoaing(true);
     try {
       const response = await Me();
       if (response.clientDetails) {
         setClient(response.clientDetails);
+        setLoaing(false);
       }
       if (response.error) {
         setError(response.error);
+        setLoaing(false);
       }
     } catch (error: any) {
       setError(error);
+      setLoaing(false);
     }
   };
 
@@ -45,6 +51,10 @@ export default function Profile() {
 
   if (!authToken) {
     return router.push("/");
+  }
+
+  if (isloading) {
+    return <Loader />;
   }
 
   return (

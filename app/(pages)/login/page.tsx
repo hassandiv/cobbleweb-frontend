@@ -27,8 +27,8 @@ export default function Login() {
         setCookie("token", response.token);
         setSuccess(response.message);
         setError(undefined);
-        // router.push("/profile");
-        router.replace("/profile");
+        router.push("/profile");
+        router.refresh();
       }
       if (response.error) {
         setError(response.error);

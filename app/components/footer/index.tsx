@@ -10,9 +10,9 @@ export default function Footer() {
   const router = useRouter();
 
   const handleSignOut = () => {
-    window.location.reload();
     deleteCookie(TOKEN);
     router.push("/");
+    router.refresh();
   };
 
   return (
@@ -85,14 +85,13 @@ export default function Footer() {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      href="#"
-                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                    <p
+                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white cursor-pointer"
                       onClick={handleSignOut}
                       suppressHydrationWarning={true}
                     >
                       Logout
-                    </Link>
+                    </p>
                   </li>
                 </>
               )}
