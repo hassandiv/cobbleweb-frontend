@@ -62,33 +62,36 @@ export default function Login() {
       <form
         onSubmit={handleLogin}
         noValidate
-        className="bg-gray-100 rounded p-6 h-96 flex flex-col items-start shadow-md"
+        className="rounded-lg flex flex-col items-start shadow-lg justify-center bg-cover"
+        style={{ backgroundImage: 'url("/3184468.jpg")' }}
       >
-        <h1 className="mb-8 mx-auto text-xl font-bold">Login</h1>
-        <div className="mb-8 flex flex-col w-full relative">
-          <Input
-            label="Email"
-            type="email"
-            name="email"
-            value={login.email}
-            placeholder="Enter your email address"
-            onChange={handleChange}
-          />
-          {validateInput("email")}
-        </div>
-        <div className="mb-8 flex flex-col w-full relative">
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            value={login.password}
-            placeholder="Enter your password"
-            onChange={handleChange}
-          />
-          {validateInput("password")}
-        </div>
-        <div className="mt-10">
-          <Button text="Login" type="submit" />
+        <div className="bg-white w-1/2 p-6 ml-auto rounded-tr-lg rounded-br-lg">
+          <h1 className="mb-8 mx-auto text-2xl font-bold">Login</h1>
+          <div className="mb-8 flex flex-col w-full relative">
+            <Input
+              label="Email"
+              type="email"
+              name="email"
+              value={login.email}
+              placeholder="Enter your email address"
+              onChange={handleChange}
+            />
+            {validateInput("email")}
+          </div>
+          <div className="mb-8 flex flex-col w-full relative">
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              value={login.password}
+              placeholder="Enter your password"
+              onChange={handleChange}
+            />
+            {validateInput("password")}
+          </div>
+          <div className="mt-10">
+            <Button text="Login" type="submit" />
+          </div>
         </div>
       </form>
       {(error?.message || error?.description) && (
