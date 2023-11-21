@@ -1,54 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { Signup } from "@/app/actions/actions";
-import { ISignup } from "@/app/models/signup";
-import { Error } from "@/app/models/error";
 import Button from "@/app/components/button";
 import Container from "@/app/components/container";
 import Input from "@/app/components/input";
 import ImageInput from "@/app/components/imageInput";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRegisterForm } from "@/app/hooks/useRegisterForm";
 
 export default function Register() {
-  const initialSignupState: ISignup = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    role: "client",
-    active: false,
-    avatar: "",
-    photos: [],
-  };
-  const [signup, setSignup] = useState<ISignup>(initialSignupState);
-  const [error, setError] = useState<Error | undefined>(undefined);
-  const router = useRouter();
-
-  const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-      const response = await Signup(signup);
-      if (response.message) {
-        router.push("/success");
-        setError(undefined);
-        setSignup(initialSignupState);
-      }
-      if (response.error) {
-        setError(response.error);
-      }
-    } catch (error: any) {
-      setError(error);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSignup({
-      ...signup,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const {
+    signup,
+    error,
+    handleRegister,
+    handleChange,
+    handleAvatarChange,
+    handlePhotosChange,
+    handleRemoveImage,
+  } = useRegisterForm();
 
   const validateInput = (field: string) => {
     return (
@@ -61,65 +29,10 @@ export default function Register() {
     );
   };
 
-  const handleAvatarChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setSignup({
-          ...signup,
-          avatar: base64String,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handlePhotosChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const files = event.target.files;
-    if (files) {
-      let updatedPhotos = [...signup.photos];
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-        reader.onloadend = ((index) => {
-          return () => {
-            const base64String = reader.result as string;
-            updatedPhotos.push({
-              name: `photo ${updatedPhotos.length + 1}`,
-              url: base64String,
-            });
-            if (index === files.length - 1) {
-              setSignup({
-                ...signup,
-                photos: updatedPhotos,
-              });
-            }
-          };
-        })(i);
-        reader.readAsDataURL(file);
-      }
-    }
-  };
-
-  const handleRemoveImage = (index: number) => {
-    let photos = [...signup.photos];
-    photos.splice(index, 1);
-    setSignup({
-      ...signup,
-      photos: photos,
-    });
-  };
-
   return (
     <Container>
       <form
-        onSubmit={handleSignup}
+        onSubmit={handleRegister}
         noValidate
         className="rounded-lg min-h-full flex flex-col items-start shadow-lg justify-center bg-cover"
         style={{ backgroundImage: 'url("/5334974.jpg")' }}

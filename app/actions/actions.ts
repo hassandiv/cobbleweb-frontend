@@ -1,10 +1,10 @@
 "use server";
 
 import { Login } from "@/app/models/login";
-import { ISignup } from "@/app/models/signup";
+import { Register } from "@/app/models/register";
 import { cookies } from "next/headers";
 
-export async function Signup(request: ISignup) {
+export async function RegisterUser(request: Register) {
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_COBBLEWEB_API_BASE_URL}register`,

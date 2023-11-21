@@ -2,44 +2,17 @@
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState, useEffect } from "react";
 import Slider from "react-slick";
-import { Me } from "@/app/actions/actions";
-import { ClientDetails } from "@/app/models/client";
-import { Error } from "@/app/models/error";
 import Image from "next/image";
-import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import Loader from "@/app/components/loader";
+import { useProfileData } from "@/app/hooks/useProfileData";
+import { getCookie } from "cookies-next";
 
 export default function Profile() {
-  const [client, setClient] = useState<ClientDetails | undefined>(undefined);
-  const [error, setError] = useState<Error | undefined>(undefined);
-  const [isloading, setLoaing] = useState<boolean>(false);
+  const { client, error, isLoading } = useProfileData();
   const authToken = getCookie("token");
   const router = useRouter();
-
-  const fetchClient = async () => {
-    setLoaing(true);
-    try {
-      const response = await Me();
-      if (response.clientDetails) {
-        setClient(response.clientDetails);
-        setLoaing(false);
-      }
-      if (response.error) {
-        setError(response.error);
-        setLoaing(false);
-      }
-    } catch (error: any) {
-      setError(error);
-      setLoaing(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchClient();
-  }, []);
 
   const sliderSettings = {
     dots: true,
@@ -53,7 +26,7 @@ export default function Profile() {
     return router.push("/");
   }
 
-  if (isloading) {
+  if (isLoading) {
     return <Loader />;
   }
 
