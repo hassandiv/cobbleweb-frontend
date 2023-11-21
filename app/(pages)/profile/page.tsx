@@ -8,10 +8,14 @@ import { Me } from "@/app/actions/actions";
 import { ClientDetails } from "@/app/models/client";
 import { Error } from "@/app/models/error";
 import Image from "next/image";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
-export default function Account() {
+export default function Profile() {
   const [client, setClient] = useState<ClientDetails | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
+  const authToken = getCookie("token");
+  const router = useRouter();
 
   const fetchClient = async () => {
     try {
@@ -38,6 +42,10 @@ export default function Account() {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  if (!authToken) {
+    return router.push("/");
+  }
 
   return (
     <>

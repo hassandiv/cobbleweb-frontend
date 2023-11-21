@@ -1,6 +1,20 @@
+"use client";
+
 import Link from "next/link";
+import { getCookie, deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
+  const TOKEN = "token";
+  const authToken = getCookie(TOKEN);
+  const router = useRouter();
+
+  const handleSignOut = () => {
+    window.location.reload();
+    deleteCookie(TOKEN);
+    router.push("/");
+  };
+
   return (
     <footer className="bg-white dark:bg-gray-900 ">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -38,22 +52,50 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/login"
-                  className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/signup"
-                  className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
-                >
-                  Signup
-                </Link>
-              </li>
+              {!authToken ? (
+                <>
+                  <li>
+                    <Link
+                      href="/login"
+                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      suppressHydrationWarning={true}
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/register"
+                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      suppressHydrationWarning={true}
+                    >
+                      Register
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      href="/profile"
+                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      suppressHydrationWarning={true}
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="#"
+                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      onClick={handleSignOut}
+                      suppressHydrationWarning={true}
+                    >
+                      Logout
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

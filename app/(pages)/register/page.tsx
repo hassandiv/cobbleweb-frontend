@@ -9,8 +9,9 @@ import Container from "@/app/components/container";
 import Input from "@/app/components/input";
 import ImageInput from "@/app/components/imageInput";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-export default function Login() {
+export default function Register() {
   const initialSignupState: ISignup = {
     firstName: "",
     lastName: "",
@@ -22,21 +23,20 @@ export default function Login() {
     photos: [],
   };
   const [signup, setSignup] = useState<ISignup>(initialSignupState);
-  const [success, setSuccess] = useState<string | undefined>(undefined);
   const [error, setError] = useState<Error | undefined>(undefined);
+  const router = useRouter();
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       const response = await Signup(signup);
       if (response.message) {
-        setSuccess(response.message);
+        router.push("/success");
         setError(undefined);
         setSignup(initialSignupState);
       }
       if (response.error) {
         setError(response.error);
-        setSuccess(undefined);
       }
     } catch (error: any) {
       setError(error);
@@ -123,7 +123,7 @@ export default function Login() {
         noValidate
         className="bg-gray-100 rounded p-6 h-full flex flex-col items-start shadow-md"
       >
-        <h1 className="mb-8 mx-auto text-xl font-bold">Sign up</h1>
+        <h1 className="mb-8 mx-auto text-xl font-bold">Register new user</h1>
         <small className="mb-4">Fields marked with * are mandatory</small>
         <div className="flex flex-col sm:flex-row w-full sm:gap-5">
           <div className="mb-8 flex flex-col w-full sm:w-44 relative">
@@ -206,9 +206,9 @@ export default function Login() {
               required={true}
               multiple
             />
-            {signup?.photos.length === 0 && validateInput("photos")}
+            {signup?.photos.length < 4 && validateInput("photos")}
           </div>
-          <div className="flex flex-wrap w-80 mt-5">
+          <div className="flex flex-wrap w-80 mt-10">
             {signup.photos &&
               signup.photos.map((photo, index) => (
                 <figure className="relative" key={index}>
@@ -232,17 +232,12 @@ export default function Login() {
           </div>
         </div>
         <div className="mt-10">
-          <Button text="Signup" type="submit" />
+          <Button text="Submit" type="submit" />
         </div>
       </form>
       {(error?.message || error?.description) && (
         <div className="mt-8 bg-red-200 p-8 rounded text-center shadow-md">
           <p>Error: {error?.message || error?.description}</p>
-        </div>
-      )}
-      {success && (
-        <div className="mt-8 bg-green-200 p-8 rounded text-center shadow-md">
-          <p>{success}</p>
         </div>
       )}
     </Container>

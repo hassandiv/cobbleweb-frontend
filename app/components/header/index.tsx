@@ -1,62 +1,89 @@
-"use server";
+"use client";
 
-import { getCookie } from "cookies-next";
-import { deleteCookie } from "cookies-next";
-import { cookies } from "next/headers";
-import Button from "../../components/button";
+import { getCookie, deleteCookie } from "cookies-next";
+
 import Link from "next/link";
+import Button from "@/app/components/button";
 
-export default async function Header() {
+export default function Header() {
   const TOKEN = "token";
-  const isAuth = getCookie(TOKEN);
-  const cookie = cookies();
-  const getToken = cookie.get(TOKEN);
-  // const deleteToken = cookie.delete(TOKEN);
-  console.log("isAuth", isAuth);
-  console.log("getToken", getToken);
-  // const handleSignOut = () => deleteCookie("token");
+  const authToken = getCookie(TOKEN);
+
+  const handleSignOut = () => {
+    window.location.reload();
+    deleteCookie(TOKEN);
+  };
 
   return (
-    <header className="w-full text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
+    <header
+      className={
+        authToken
+          ? "bg-green-100"
+          : "bg-white" +
+            "w-full text-gray-700  border-t border-gray-100 shadow-sm body-font"
+      }
+      suppressHydrationWarning={true}
+    >
       <div className="container max-w-screen-xl flex flex-col items-start justify-between p-6 mx-auto md:flex-row">
         <a className="flex items-center mb-4 font-medium text-gray-900 title-font md:mb-0">
           Cobbleweb
         </a>
         <nav className="flex flex-wrap items-center justify-center pl-6 ml-6 text-base border-l border-gray-200 md:mr-auto">
-          <Link href="/" className="mr-5 font-medium hover:text-gray-900">
-            Home
-          </Link>
-          <Link href="/about" className="mr-5 font-medium hover:text-gray-900">
-            About
-          </Link>
-          <Link
-            href="/contact"
-            className="mr-5 font-medium hover:text-gray-900"
-          >
-            Contact
-          </Link>
+          <ul className="flex flex-row items-center justify-between w-44">
+            <li>
+              <Link href="/" className="mr-5 font-medium hover:text-gray-900">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about"
+                className="mr-5 font-medium hover:text-gray-900"
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact"
+                className="mr-5 font-medium hover:text-gray-900"
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
         </nav>
         <div className="items-center h-full">
-          {!getToken?.value ? (
+          {!authToken ? (
             <>
               <Link
                 href="/login"
                 className="mr-5 font-medium hover:text-gray-900"
+                suppressHydrationWarning={true}
               >
                 Login
               </Link>
-              <Button text="sign up" to="/signup" />
+              <Button
+                text="Register"
+                to="/register"
+                suppressHydrationWarning={true}
+              />
             </>
           ) : (
             <>
               <Link
-                href="/account"
+                href="/profile"
                 className="mr-5 font-medium hover:text-gray-900"
+                suppressHydrationWarning={true}
               >
-                Account
+                Profile
               </Link>
-              {/* <Button text="sign up" to="/signup" /> */}
-              {/* <button onClick={() => cookie.delete(TOKEN)}>Sign out</button> */}
+              <Button
+                text="Logout"
+                to="/"
+                submit={handleSignOut}
+                suppressHydrationWarning={true}
+              />
             </>
           )}
         </div>

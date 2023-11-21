@@ -7,11 +7,13 @@ export default function Button({
   to,
   type,
   submit,
+  suppressHydrationWarning,
 }: {
   text: string;
   to?: string | undefined;
   type?: "button" | "submit" | "reset" | undefined;
   submit?: () => void;
+  suppressHydrationWarning?: boolean;
 }) {
   const router = useRouter();
 
@@ -29,6 +31,7 @@ export default function Button({
       type={type ? type : undefined}
       onClick={to ? handleClick : undefined}
       className="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease"
+      suppressHydrationWarning={suppressHydrationWarning}
     >
       {text}
     </button>
