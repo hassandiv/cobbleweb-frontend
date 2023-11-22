@@ -123,28 +123,28 @@ export default function Register() {
               />
               {signup?.photos.length < 4 && validateInput("photos")}
             </div>
-            <div className="flex flex-wrap w-80 mt-10">
-              {signup.photos &&
-                signup.photos.map((photo, index) => (
-                  <figure className="relative" key={index}>
-                    <Image
-                      src={photo.url}
-                      alt={photo.name}
-                      className="w-16 h-10 object-cover mr-2 mb-4"
-                      width={100}
-                      height={100}
-                    />
-                    <Image
-                      src="/remove.png"
-                      alt="remove image"
-                      className="absolute -top-3 right-0 w-5 h-auto cursor-pointer"
-                      onClick={() => handleRemoveImage(index)}
-                      width={100}
-                      height={100}
-                    />
-                  </figure>
-                ))}
-            </div>
+          </div>
+          <div className="flex flex-wrap w-80 mt-8 pt-3 h-28 overflow-y-auto">
+            {signup.photos &&
+              signup.photos.map((photo, index) => (
+                <figure className="relative" key={index}>
+                  <Image
+                    src={photo.url}
+                    alt={photo.name}
+                    className="w-16 h-10 object-cover mr-2 mb-4"
+                    width={100}
+                    height={100}
+                  />
+                  <Image
+                    src="/remove.png"
+                    alt="remove image"
+                    className="absolute -top-3 right-0 w-5 h-auto cursor-pointer"
+                    onClick={() => handleRemoveImage(index)}
+                    width={100}
+                    height={100}
+                  />
+                </figure>
+              ))}
           </div>
           <div className="mt-10">
             <Button text="Submit" type="submit" />

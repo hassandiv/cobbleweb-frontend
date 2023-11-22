@@ -67,7 +67,6 @@ export default function Footer() {
                     <Link
                       href="/register"
                       className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
-                      suppressHydrationWarning={true}
                     >
                       Register
                     </Link>
@@ -84,14 +83,12 @@ export default function Footer() {
                       Profile
                     </Link>
                   </li>
-                  <li>
-                    <p
-                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white cursor-pointer"
-                      onClick={handleSignOut}
-                      suppressHydrationWarning={true}
-                    >
-                      Logout
-                    </p>
+                  <li
+                    className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white cursor-pointer"
+                    onClick={handleSignOut}
+                    suppressHydrationWarning={true}
+                  >
+                    Logout
                   </li>
                 </>
               )}
