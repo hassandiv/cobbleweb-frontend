@@ -3,7 +3,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, clone the cobbleweb-frontend repository from GitHub.
+
 Second, install dependencies.
+
 Third, run the development server.
 
 ```bash
