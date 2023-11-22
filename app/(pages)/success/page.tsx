@@ -1,6 +1,23 @@
+"use client";
+
 import Button from "@/app/components/button";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Success() {
+  const router = useRouter();
+
+  useEffect(() => {
+    try {
+      const user = localStorage.getItem("user-created");
+      if (!user) {
+        return router.push("/login");
+      }
+    } catch (err) {
+      console.log("err", err);
+    }
+  });
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover"
@@ -31,7 +48,11 @@ export default function Success() {
           platform.
         </p>
         <div className="mt-6">
-          <Button text="Login" to="/login" />
+          <Button
+            text="Login"
+            to="/login"
+            submit={() => localStorage.removeItem("user-created")}
+          />
         </div>
       </div>
     </div>

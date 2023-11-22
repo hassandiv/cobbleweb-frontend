@@ -24,6 +24,7 @@ export const useRegisterForm = () => {
       e.preventDefault();
       const response = await RegisterUser(signup);
       if (response.message) {
+        localStorage.setItem("user-created", response.message);
         setError(undefined);
         setSignup(initialSignupState);
         router.push("/success");

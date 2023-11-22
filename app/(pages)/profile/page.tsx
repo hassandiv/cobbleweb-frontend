@@ -4,7 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Loader from "@/app/components/loader";
 import { useProfileData } from "@/app/hooks/useProfileData";
 import { getCookie } from "cookies-next";
@@ -12,7 +11,6 @@ import { getCookie } from "cookies-next";
 export default function Profile() {
   const { client, error, isLoading } = useProfileData();
   const authToken = getCookie("token");
-  const router = useRouter();
 
   const sliderSettings = {
     dots: true,
@@ -22,11 +20,7 @@ export default function Profile() {
     slidesToScroll: 1,
   };
 
-  if (!authToken) {
-    return router.push("/");
-  }
-
-  if (isLoading) {
+  if (isLoading || !authToken) {
     return <Loader />;
   }
 
