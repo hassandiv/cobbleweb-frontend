@@ -28,7 +28,7 @@ export default function Login() {
         className="rounded-lg flex flex-col items-start shadow-lg justify-center bg-cover"
         style={{ backgroundImage: 'url("/3184468.jpg")' }}
       >
-        <div className="bg-white w-1/2 p-6 ml-auto rounded-tr-lg rounded-br-lg">
+        <div className="bg-white w-80 mx-auto my-5 md:my-0 md:w-1/2 p-6 md:ml-auto md:mr-0 rounded-tr-lg rounded-br-lg">
           <h1 className="mb-8 mx-auto text-2xl font-bold">Login</h1>
           <div className="mb-8 flex flex-col w-full relative">
             <Input

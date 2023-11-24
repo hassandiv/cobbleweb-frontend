@@ -23,7 +23,7 @@ export default function Success() {
       className="min-h-screen flex items-center justify-center bg-cover"
       style={{ backgroundImage: 'url("/6103107.jpg")' }}
     >
-      <div className="bg-white p-8 rounded-lg shadow-xl">
+      <div className="bg-white p-4 md:p-8 mx-5 rounded-lg shadow-xl">
         <div className="flex items-center justify-center mb-4">
           <svg
             className="text-green-500 w-12 h-12 mr-2"

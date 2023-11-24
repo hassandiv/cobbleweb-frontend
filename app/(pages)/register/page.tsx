@@ -37,7 +37,7 @@ export default function Register() {
         className="rounded-lg min-h-full flex flex-col items-start shadow-lg justify-center bg-cover"
         style={{ backgroundImage: 'url("/5334974.jpg")' }}
       >
-        <div className="bg-white w-1/2 p-6 ml-auto rounded-tr-lg rounded-br-lg">
+        <div className="bg-white w-80 mx-auto my-5 md:my-0 md:w-1/2 p-6 md:ml-auto md:mr-0 rounded-tr-lg rounded-br-lg">
           <h1 className="mb-8 mx-auto text-2xl font-bold">Register new user</h1>
           <small className="mb-4">Fields marked with * are mandatory</small>
           <div className="flex flex-col sm:flex-row w-full sm:gap-5">
@@ -90,7 +90,7 @@ export default function Register() {
             />
             {validateInput("password")}
           </div>
-          <div className="w-64 mb-8 flex flex-row justify-between relative">
+          <div className="w-full md:w-64 mb-8 flex flex-row justify-between relative">
             <div className="w-36">
               <ImageInput
                 label="Avatar"
@@ -124,7 +124,7 @@ export default function Register() {
               {signup?.photos.length < 4 && validateInput("photos")}
             </div>
           </div>
-          <div className="flex flex-wrap w-80 mt-8 pt-3 h-28 overflow-y-auto">
+          <div className="flex flex-wrap w-full md:w-80 mt-8 pt-3 h-28 overflow-y-auto">
             {signup.photos &&
               signup.photos.map((photo, index) => (
                 <figure className="relative" key={index}>

@@ -20,53 +20,53 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="/" className="flex items-center">
-              <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+            <a href="/" className="flex items-center justify-center">
+              <span className=" text-2xl font-semibold whitespace-nowrap dark:text-white">
                 Cobbleweb
               </span>
             </a>
           </div>
           <div>
-            <ul className="flex flex-row items-center justify-between w-96 text-gray-500 dark:text-gray-400 font-medium">
-              <li>
+            <ul className="flex flex-row items-center justify-center md:justify-between md:w-96 text-gray-500 dark:text-gray-400 font-medium">
+              <li className="mb-2 md:mb-0">
                 <Link
                   href="/"
-                  className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                  className="mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
                 >
                   Home
                 </Link>
               </li>
-              <li>
+              <li className="mb-2 md:mb-0">
                 <Link
                   href="/about"
-                  className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                  className="mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
                 >
                   About
                 </Link>
               </li>
-              <li>
+              <li className="mb-2 md:mb-0">
                 <Link
                   href="/contact"
-                  className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                  className="mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
                 >
                   Contact
                 </Link>
               </li>
               {!authToken ? (
                 <>
-                  <li>
+                  <li className="mb-2 md:mb-0">
                     <Link
                       href="/login"
-                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      className="mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
                       suppressHydrationWarning={true}
                     >
                       Login
                     </Link>
                   </li>
-                  <li>
+                  <li className="mb-2 md:mb-0">
                     <Link
                       href="/register"
-                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      className="mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
                     >
                       Register
                     </Link>
@@ -74,17 +74,17 @@ export default function Footer() {
                 </>
               ) : (
                 <>
-                  <li>
+                  <li className="mb-2 md:mb-0">
                     <Link
                       href="/profile"
-                      className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
+                      className="mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white"
                       suppressHydrationWarning={true}
                     >
                       Profile
                     </Link>
                   </li>
                   <li
-                    className="mr-5 font-medium hover:text-gray-900 dark:hover:text-white cursor-pointer"
+                    className="mb-2 md:mb-0 mx-2 md:mr-5 font-medium hover:text-gray-900 dark:hover:text-white cursor-pointer"
                     onClick={handleSignOut}
                     suppressHydrationWarning={true}
                   >
@@ -96,7 +96,7 @@ export default function Footer() {
           </div>
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <div className="sm:flex sm:items-center sm:justify-between">
+        <div className="sm:flex text-center sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <Link href="#" className="hover:underline">
@@ -104,7 +104,7 @@ export default function Footer() {
             </Link>
             . All Rights Reserved.
           </span>
-          <div className="flex mt-4 sm:justify-center sm:mt-0">
+          <div className="flex mt-4 justify-center sm:mt-0">
             <Link
               href="#"
               className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"

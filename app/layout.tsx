@@ -29,7 +29,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <main className="container max-w-screen-xl min-h-screen p-6 mx-auto md:flex-row">
+        <main
+          className="container max-w-screen-xl min-h-screen p-6 mx-auto md:flex-row"
+          suppressHydrationWarning={true}
+        >
           {children}
         </main>
         <Footer />
